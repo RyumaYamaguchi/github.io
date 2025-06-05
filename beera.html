@@ -19,22 +19,32 @@
             overflow: hidden; /* パーティクルがはみ出ないように */
         }
         .section-title {
-            font-size: 2.25rem; /* text-3xl or text-4xl */
-            line-height: 2.75rem; /* line-height調整 */
+            font-size: 1.875rem; /* text-3xl for mobile */
+            line-height: 2.5rem; 
             font-weight: 700;
             margin-bottom: 2.5rem; /* mb-10 */
             text-align: center;
             color: #ffffff; /* 白色 */
         }
+        @media (min-width: 768px) { /* md breakpoint */
+            .section-title {
+                font-size: 2.25rem; /* text-4xl for md and up */
+                line-height: 2.75rem;
+            }
+        }
         .card {
             background-color: #1e293b; /* やや明るい紺色 */
             border-radius: 0.75rem; /* Tailwindのrounded-xl相当 */
-            padding: 2rem; /* Tailwindのp-8相当 */
+            padding: 1.5rem; /* p-6 for mobile */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* height: 100%; */ /* 他のカードで高さ揃えが必要な場合があるため、個別指定に任せる */
         }
-        .service-card { /* サービスカードなど高さを揃えたいカード用のクラス */
+         @media (min-width: 768px) { /* md breakpoint */
+            .card {
+                padding: 2rem; /* p-8 for md and up */
+            }
+        }
+        .service-card {
             height: 100%;
         }
         .card:hover {
@@ -59,22 +69,39 @@
         .btn-primary:hover {
             background-color: #2563eb; /* Tailwindのbg-blue-700相当 */
         }
-        .icon-placeholder { /* SVGアイコンのプレースホルダー */
-            width: 3rem; /* Tailwindのw-12相当 */
-            height: 3rem; /* Tailwindのh-12相当 */
+        .icon-placeholder {
+            width: 2.5rem; /* w-10 for mobile */
+            height: 2.5rem; /* h-10 for mobile */
             margin-bottom: 1rem; /* Tailwindのmb-4相当 */
             color: #3b82f6; /* Tailwindのtext-blue-500相当 */
         }
+         @media (min-width: 768px) { /* md breakpoint */
+            .icon-placeholder {
+                 width: 3rem;
+                 height: 3rem;
+            }
+        }
         .feature-card h3 {
-            font-size: 1.25rem; /* Tailwindのtext-xl相当 */
+            font-size: 1.125rem; /* text-lg for mobile */
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 0.75rem; /* mb-3 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+         @media (min-width: 768px) { /* md breakpoint */
+            .feature-card h3 {
+                 font-size: 1.25rem; /* text-xl for md and up */
+                 margin-bottom: 0.75rem; /* mb-3 */
+            }
         }
         .feature-card p {
-            font-size: 0.9rem; /* やや小さめ */
+            font-size: 0.875rem; /* text-sm for mobile */
             color: #cbd5e1; /* Tailwindのtext-slate-300相当 */
             line-height: 1.6;
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .feature-card p {
+                font-size: 0.9rem; 
+            }
         }
         .text-gradient {
             background: linear-gradient(90deg, #60a5fa, #3b82f6);
@@ -89,14 +116,19 @@
             z-index: 50;
         }
 
-        /* ファーストビュー アニメーション用スタイル */
-        .hero-content .hero-headline { /* タイピングアニメーション対象のスタイル */
-            opacity: 1; /* 初期状態で表示（JSで制御） */
+        .hero-content .hero-headline {
+            opacity: 1;
             transform: translateY(0);
-            display: inline-block; /* display:inline-block はカーソルがなくても問題ないが、念のため残すか検討 */
-            line-height: 1.3; /* 行間の調整 */
+            display: inline-block;
+            line-height: 1.3;
+            font-size: 2.25rem; /* text-3xl for mobile */
         }
-        .hero-content > *:not(.hero-headline) { /* 見出し以外のアニメーション */
+         @media (min-width: 768px) { /* md breakpoint */
+            .hero-content .hero-headline {
+                font-size: 3.75rem; /* text-6xl for md and up */
+            }
+        }
+        .hero-content > *:not(.hero-headline) {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -105,66 +137,37 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* 各要素の遅延設定 (見出し以外) */
         .hero-content.loaded > .hero-paragraph { transition-delay: 0.2s; }
 
-        /* タイピングカーソルのスタイルとアニメーションは削除 */
-        /*
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1em;
-            background-color: #e0e0e0;
-            animation: blink 0.7s infinite;
-            margin-left: 2px;
-            vertical-align: text-bottom;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        */
-
-        /* パーティクルエフェクト */
         .particles-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* コンテンツより後ろ */
+            z-index: 0;
         }
         .particle {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.2); /* パーティクルの色と透明度 */
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             animation: moveParticle 20s linear infinite;
-            will-change: transform, opacity; /* アニメーションのパフォーマンス向上 */
+            will-change: transform, opacity;
         }
-
         @keyframes moveParticle {
-            0% {
-                transform: translateY(0) translateX(0) scale(1);
-                opacity: 0.1;
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(1.2);
-            }
-            100% {
-                transform: translateY(-100vh) translateX(calc(var(--random-x) * 50vw)) scale(0.5);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.1; }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { transform: translateY(-100vh) translateX(calc(var(--random-x) * 50vw)) scale(0.5); opacity: 0; }
         }
-        /* 会社概要の各項目に対するスタイル */
         .company-info-item {
-             padding-top: 0.5rem; /* Tailwindのpy-2相当の上側 */
-             padding-bottom: 0.5rem; /* Tailwindのpy-2相当の下側 */
+             padding-top: 0.5rem;
+             padding-bottom: 0.5rem;
         }
-         /* 最後の事業内容の下の余白は詰める */
         .company-info-wrapper > .company-info-item:last-child {
             padding-bottom: 0;
         }
+        .break-keep { word-break: keep-all; } /* 日本語の単語途中での改行を避ける */
+        .break-words { overflow-wrap: break-word; } /* はみ出し防止 */
 
     </style>
 </head>
@@ -186,7 +189,6 @@
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
-        <!-- モバイルメニュー -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-1">
             <a href="#services" class="block py-2 px-3 hover:bg-gray-700 rounded transition duration-300">提供サービス</a>
             <a href="#features" class="block py-2 px-3 hover:bg-gray-700 rounded transition duration-300">選ばれる理由</a>
@@ -199,12 +201,13 @@
     <section class="hero-gradient py-20 md:py-32">
         <div class="particles-container"></div>
         <div class="container mx-auto px-6 text-center relative z-10 hero-content">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-10 md:mb-12 hero-headline">
-                <span id="typing-text"></span><!-- カーソル用のspanを削除 -->
+            <h1 class="hero-headline mb-8 md:mb-10 break-words"> <!-- mb調整、break-words追加 -->
+                <span id="typing-text"></span>
             </h1>
-            <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto hero-paragraph leading-relaxed md:leading-loose">
-                貴社の課題解決に特化したAI研修プログラムをご提供。<br>
-                実践的なスキル習得とAI導入・活用を徹底サポートし、<br class="hidden sm:inline">競争優位性の確立をお手伝いします。
+            <p class="text-base md:text-xl text-blue-100 max-w-2xl md:max-w-3xl mx-auto hero-paragraph leading-relaxed md:leading-loose">
+                貴社の課題解決に特化した<br class="sm:hidden">AI研修プログラムをご提供。<br>
+                実践的なスキル習得と<br class="sm:hidden">AI導入・活用を徹底サポートし、<br>
+                競争優位性の確立を<br class="sm:hidden">お手伝いします。
             </p>
         </div>
     </section>
@@ -212,37 +215,41 @@
     <!-- 提供サービスセクション -->
     <section id="services" class="py-16 md:py-24">
         <div class="container mx-auto px-6">
-            <h2 class="section-title">貴社の課題に合わせた<br class="sm:hidden"><span class="text-gradient">AI研修プログラム</span></h2>
-            <p class="text-center text-slate-300 mb-12 md:mb-16 max-w-3xl mx-auto leading-relaxed">
-                AIの基礎から応用、戦略策定まで、<br class="sm:hidden">幅広いニーズに対応する研修をご用意。<br>
-                企業様の状況や目的に合わせ、<br class="sm:hidden">最適なプログラムをご提案します。
+            <h2 class="section-title break-words">貴社の課題に合わせた<br><span class="text-gradient">AI研修プログラム</span></h2>
+            <p class="text-sm sm:text-base text-center text-slate-300 mb-12 md:mb-16 max-w-xl md:max-w-3xl mx-auto leading-relaxed break-words">
+                AIの基礎から応用、<br class="sm:hidden">戦略策定まで、<br>
+                幅広いニーズに対応する<br class="sm:hidden">研修をご用意。<br>
+                企業様の状況や目的に合わせ、<br>最適なプログラムをご提案します。
             </p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- サービスカード1 -->
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
                 <div class="card service-card flex flex-col">
                     <svg class="icon-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    <h3 class="text-2xl font-semibold text-white mb-3">経営層・管理職向け<br>AI戦略研修</h3>
-                    <p class="text-slate-300 leading-relaxed flex-grow">
-                        AI導入によるビジネス変革の可能性を具体的に理解し、<br class="sm:hidden">自社に最適なAI戦略を策定するための研修です。<br>
-                        最新の技術動向、国内外の成功事例を交え、<br class="sm:hidden">AIプロジェクト推進のための実践的な視点と<br class="sm:hidden">リーダーシップを養います。
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3 break-words">経営層・管理職向け<br>AI戦略研修</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed flex-grow break-words">
+                        AI導入によるビジネス変革の<br class="sm:hidden">可能性を具体的に理解し、<br>
+                        自社に最適なAI戦略を<br class="sm:hidden">策定するための研修です。<br>
+                        最新の技術動向、<br class="sm:hidden">国内外の成功事例を交え、<br>
+                        AIプロジェクト推進のための<br class="sm:hidden">実践的な視点と<br class="hidden sm:inline">リーダーシップを養います。
                     </p>
                 </div>
-                <!-- サービスカード2 -->
                 <div class="card service-card flex flex-col">
                     <svg class="icon-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    <h3 class="text-2xl font-semibold text-white mb-3">技術者・開発者向け<br>実践AI開発研修</h3>
-                    <p class="text-slate-300 leading-relaxed flex-grow">
-                        機械学習、深層学習、自然言語処理、生成AIなど、<br class="sm:hidden">特定の技術分野に特化したハンズオン形式の研修です。<br>
-                        実際の業務で直面する課題解決を想定した演習を通じ、<br class="sm:hidden">即戦力となる高度なAI開発スキルを習得できます。
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3 break-words">技術者・開発者向け<br>実践AI開発研修</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed flex-grow break-words">
+                        機械学習、深層学習、<br class="sm:hidden">自然言語処理、生成AIなど、<br>
+                        特定の技術分野に特化した<br class="sm:hidden">ハンズオン形式の研修です。<br>
+                        実際の業務で直面する<br class="sm:hidden">課題解決を想定した演習を通じ、<br>
+                        即戦力となる高度な<br class="sm:hidden">AI開発スキルを習得できます。
                     </p>
                 </div>
-                <!-- サービスカード3 -->
                 <div class="card service-card flex flex-col">
                      <svg class="icon-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    <h3 class="text-2xl font-semibold text-white mb-3">全社員向け<br>AIリテラシー向上研修</h3>
-                    <p class="text-slate-300 leading-relaxed flex-grow">
-                        AIの基礎知識、倫理的側面、身近な活用事例まで、<br class="sm:hidden">全社員がAIを正しく理解し、<br class="sm:hidden">業務での活用アイデアを生み出すための土壌を育む研修です。<br>
-                        DX推進の第一歩として、<br class="sm:hidden">組織全体のAIに対する意識改革とスキルアップをサポートします。
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3 break-words">全社員向け<br>AIリテラシー向上研修</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed flex-grow break-words">
+                        AIの基礎知識、倫理的側面、<br class="sm:hidden">身近な活用事例まで、<br>
+                        全社員がAIを正しく理解し、<br>
+                        業務での活用アイデアを<br class="sm:hidden">生み出すための土壌を<br class="hidden sm:inline">育む研修です。<br>
+                        DX推進の第一歩として、<br class="sm:hidden">組織全体のAIに対する<br class="sm:hidden">意識改革と<br class="hidden sm:inline">スキルアップをサポートします。
                     </p>
                 </div>
             </div>
@@ -252,39 +259,33 @@
     <!-- 選ばれる理由セクション -->
     <section id="features" class="py-16 md:py-24 bg-gray-900/30">
         <div class="container mx-auto px-6">
-            <h2 class="section-title">Be EraのAI研修が<br class="sm:hidden"><span class="text-gradient">選ばれる理由</span></h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 class="section-title break-words">Be EraのAI研修が<br><span class="text-gradient">選ばれる理由</span></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 <div class="feature-card card service-card text-center">
-                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                    </svg>
-                    <h3>最新技術トレンドを反映</h3>
-                    <p>生成AI、LLMなど、常に進化するAI技術の<br class="sm:hidden">最新トレンドをいち早くカリキュラムに反映。<br>
-                        時代を先取りする知識とスキルをご提供します。</p>
+                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+                    <h3 class="break-words">最新技術トレンドを反映</h3>
+                    <p class="break-words">生成AI、LLMなど、<br class="sm:hidden">常に進化するAI技術の<br>
+                        最新トレンドをいち早く<br class="sm:hidden">カリキュラムに反映。<br>
+                        時代を先取りする知識と<br class="sm:hidden">スキルをご提供します。</p>
                 </div>
                 <div class="feature-card card service-card text-center">
-                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                    </svg>
-                    <h3>貴社専用カスタマイズ</h3>
-                    <p>企業様の具体的な事業課題や戦略、<br class="sm:hidden">受講者のスキルレベルに合わせ、<br class="sm:hidden">研修内容を柔軟にカスタマイズ。<br>
+                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
+                    <h3 class="break-words">貴社専用カスタマイズ</h3>
+                    <p class="break-words">企業様の具体的な事業課題や<br class="sm:hidden">戦略、受講者のスキルレベルに<br class="sm:hidden">合わせ、研修内容を柔軟に<br class="hidden sm:inline">カスタマイズ。<br>
                         最適な学習効果を追求します。</p>
                 </div>
                 <div class="feature-card card service-card text-center">
-                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                    </svg>
-                    <h3>実践重視のプログラム</h3>
-                    <p>座学だけでなく、ワークショップや<br class="sm:hidden">実際の業務に近いケーススタディを豊富に取り入れ、<br>
-                        実務に直結する「使える」スキル習得を<br class="sm:hidden">徹底サポートします。</p>
+                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>
+                    <h3 class="break-words">実践重視のプログラム</h3>
+                    <p class="break-words">座学だけでなく、<br class="sm:hidden">ワークショップや実際の業務に<br class="sm:hidden">近いケーススタディを豊富に<br class="hidden sm:inline">取り入れ、<br>
+                        実務に直結する「使える」<br class="sm:hidden">スキル習得を徹底サポートします。</p>
                 </div>
                  <div class="feature-card card service-card text-center">
-                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5H9m9-4.5H9m11.25-1.125c.621 0 1.125.504 1.125 1.125V18.75m-13.5-1.125V6.375c0-.621.504-1.125 1.125-1.125H13.5M12 11.25L9 15l3 3.75M9 15h6" />
-                    </svg>
-                    <h3>柔軟なサポート体制</h3>
-                    <p>貴社のご都合に合わせ、対面でのオフライン研修、<br class="sm:hidden">遠隔でのオンライン研修、<br class="sm:hidden">または両者を組み合わせたハイブリッド形式など、<br>
-                        柔軟な実施形態をご提案します。</p>
+                    <svg class="icon-placeholder mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5H9m9-4.5H9m11.25-1.125c.621 0 1.125.504 1.125 1.125V18.75m-13.5-1.125V6.375c0-.621.504-1.125 1.125-1.125H13.5M12 11.25L9 15l3 3.75M9 15h6" /></svg>
+                    <h3 class="break-words">柔軟なサポート体制</h3>
+                    <p class="break-words">貴社のご都合に合わせ、<br class="sm:hidden">対面でのオフライン研修、<br>
+                        遠隔でのオンライン研修、<br class="sm:hidden">または両者を組み合わせた<br class="hidden sm:inline">ハイブリッド形式など、<br>
+                        柔軟な実施形態を<br class="sm:hidden">ご提案します。</p>
                 </div>
             </div>
         </div>
@@ -293,18 +294,22 @@
     <!-- 導入事例セクション -->
     <section id="testimonials" class="py-16 md:py-24">
         <div class="container mx-auto px-6">
-            <h2 class="section-title">お客様の<span class="text-gradient">声</span>・導入事例</h2>
-             <p class="text-center text-slate-300 mb-12 md:mb-16 max-w-3xl mx-auto leading-relaxed">
-                AI研修を通じて、多くの企業様のDX推進や業務効率化に貢献しています。<br class="hidden md:inline">
-                研修の成果の一部をご紹介します。
+            <h2 class="section-title break-words">お客様の<span class="text-gradient">声</span>・導入事例</h2>
+             <p class="text-sm sm:text-base text-center text-slate-300 mb-12 md:mb-16 max-w-xl md:max-w-3xl mx-auto leading-relaxed break-words">
+                AI研修を通じて、<br class="sm:hidden">多くの企業様のDX推進や<br class="sm:hidden">業務効率化に貢献しています。<br>
+                研修の成果の一部を<br class="sm:hidden">ご紹介します。
             </p>
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8">
                 <div class="card service-card">
-                    <p class="text-slate-300 italic mb-4">"AIの可能性を具体的に理解でき、<br class="sm:hidden">自社のDX推進に大きな一歩を踏み出せました。<br class="sm:hidden">特に生成AIの活用方法が参考になりました。"</p>
+                    <p class="text-sm text-slate-300 italic mb-4 break-words">"AIの可能性を具体的に理解でき、<br>
+                        自社のDX推進に<br class="sm:hidden">大きな一歩を踏み出せました。<br>
+                        特に生成AIの活用方法が<br class="sm:hidden">参考になりました。"</p>
                     <p class="font-semibold text-white">A株式会社 様<span class="text-sm text-slate-400 ml-2">探偵会社</span></p>
                 </div>
                 <div class="card service-card">
-                    <p class="text-slate-300 italic mb-4">"社員のAIリテラシーが格段に向上し、<br class="sm:hidden">現場からの業務改善提案が増えました。<br class="sm:hidden">研修内容も分かりやすく、実践的でした。"</p>
+                    <p class="text-sm text-slate-300 italic mb-4 break-words">"社員のAIリテラシーが<br class="sm:hidden">格段に向上し、<br>
+                        現場からの業務改善提案が<br class="sm:hidden">増えました。<br>
+                        研修内容も分かりやすく、<br class="sm:hidden">実践的でした。"</p>
                     <p class="font-semibold text-white">Bサービス 様<span class="text-sm text-slate-400 ml-2">広告代理店</span></p>
                 </div>
             </div>
@@ -318,14 +323,14 @@
     <section class="hero-gradient py-16 md:py-24">
         <div class="particles-container"></div>
         <div class="container mx-auto px-6 text-center relative z-10">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-                AI活用で、<br class="md:hidden">ビジネスの未来を切り拓きませんか？
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 break-words">
+                AI活用で、<br class="md:hidden">ビジネスの未来を<br class="sm:hidden">切り拓きませんか？
             </h2>
-            <p class="text-lg text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-base md:text-lg text-blue-100 mb-10 max-w-md md:max-w-2xl mx-auto leading-relaxed break-words">
                 まずはお気軽にご相談ください。<br>
-                貴社の課題に最適なAI研修プログラムをご提案します。
+                貴社の課題に最適な<br class="sm:hidden">AI研修プログラムをご提案します。
             </p>
-            <a href="#contact" class="btn bg-white text-blue-600 hover:bg-blue-50 text-lg px-10 py-4">
+            <a href="#contact" class="btn bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 md:px-10 py-3 md:py-4">
                 今すぐ専門家に相談する
             </a>
         </div>
@@ -335,12 +340,12 @@
     <!-- 会社概要セクション -->
     <section id="company" class="py-16 md:py-24">
         <div class="container mx-auto px-6">
-            <h2 class="section-title"><span class="text-gradient">会社概要</span></h2>
+            <h2 class="section-title break-words"><span class="text-gradient">会社概要</span></h2>
             <div class="card max-w-xl mx-auto text-sm md:text-base h-auto">
                 <div class="company-info-wrapper space-y-1">
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 company-info-item">
                         <div class="sm:col-span-1 font-semibold text-white">会社名</div>
-                        <div class="sm:col-span-2 text-slate-300">Be Era LLC（Be Era合同会社）</div>
+                        <div class="sm:col-span-2 text-slate-300 break-words">Be Era LLC<br class="xs:hidden sm:inline">（Be Era合同会社）</div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 company-info-item">
                         <div class="sm:col-span-1 font-semibold text-white">代表社員</div>
@@ -352,14 +357,14 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 company-info-item">
                         <div class="sm:col-span-1 font-semibold text-white">所在地</div>
-                        <div class="sm:col-span-2 text-slate-300">東京都渋谷区道玄坂１丁目１０番８号<br class="sm:hidden">渋谷道玄坂東急ビル２Ｆ－Ｃ</div>
+                        <div class="sm:col-span-2 text-slate-300 break-words">東京都渋谷区道玄坂<br class="xs:hidden sm:inline">１丁目１０番８号<br>渋谷道玄坂東急ビル２Ｆ－Ｃ</div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 company-info-item">
                         <div class="sm:col-span-1 font-semibold text-white">事業内容</div>
-                        <div class="sm:col-span-2 text-slate-300">
-                            法人向けAI研修プログラムの開発・提供<br>
+                        <div class="sm:col-span-2 text-slate-300 break-words">
+                            法人向けAI研修プログラムの<br class="sm:hidden">開発・提供<br>
                             AI導入コンサルティング<br>
-                            業務効率化を目的としたDX支援
+                            業務効率化を目的とした<br class="sm:hidden">DX支援
                         </div>
                     </div>
                 </div>
@@ -370,11 +375,12 @@
     <!-- お問い合わせセクション -->
     <section id="contact" class="py-16 md:py-24 bg-gray-900/30">
         <div class="container mx-auto px-6">
-            <h2 class="section-title">お気軽にお<span class="text-gradient">問い合わせ</span>ください</h2>
+            <h2 class="section-title break-words">お気軽にお<span class="text-gradient">問い合わせ</span>ください</h2>
             <div class="card max-w-3xl mx-auto h-auto">
-                <p class="text-center text-slate-300 mb-8 leading-relaxed">
-                    AI研修に関するご質問、ご相談、資料請求など、<br class="md:hidden">どのようなことでもお気軽にご連絡ください。<br>
-                    担当者より2営業日以内に折り返しご連絡いたします。
+                <p class="text-sm sm:text-base text-center text-slate-300 mb-8 leading-relaxed break-words">
+                    AI研修に関するご質問、<br class="sm:hidden">ご相談、資料請求など、<br>
+                    どのようなことでも<br class="sm:hidden">お気軽にご連絡ください。<br>
+                    担当者より2営業日以内に<br class="sm:hidden">折り返しご連絡いたします。
                 </p>
                 <form id="contact-form">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -402,7 +408,7 @@
                         <textarea id="message" rows="5" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="研修内容の詳細について知りたい、具体的な課題について相談したい等" required></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary px-10 py-3 text-lg">送信する</button>
+                        <button type="submit" class="btn btn-primary px-8 md:px-10 py-3 text-base md:text-lg">送信する</button>
                     </div>
                 </form>
                 <div id="form-feedback" class="mt-6 text-center"></div>
@@ -416,10 +422,10 @@
             <a href="#" class="text-2xl font-bold text-white mb-4 inline-block">
                  <span class="text-gradient">Be</span> Era LLC
             </a>
-            <p class="text-sm mb-4">
-                東京都渋谷区道玄坂１丁目１０番８号渋谷道玄坂東急ビル２Ｆ－Ｃ
+            <p class="text-xs sm:text-sm mb-4 break-words">
+                東京都渋谷区道玄坂１丁目１０番８号<br class="xs:hidden sm:inline">渋谷道玄坂東急ビル２Ｆ－Ｃ
             </p>
-            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 mb-4 text-sm">
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 mb-4 text-xs sm:text-sm">
                 <a href="#services" class="hover:text-blue-400">提供サービス</a>
                 <a href="#features" class="hover:text-blue-400">選ばれる理由</a>
                 <a href="#company" class="hover:text-blue-400">会社概要</a>
@@ -494,10 +500,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             const heroContent = document.querySelector('.hero-content');
             const typingTextElement = document.getElementById('typing-text');
-            // const typingCursorElement = document.querySelector('.typing-cursor'); // カーソルは削除したので不要
 
-            const textLines = [ 
-                "AI研修でDXを加速。<br class=\"hidden md:block\">", 
+            const textLines = (window.innerWidth < 768) ? [ // モバイル用の改行
+                "AI研修でDXを加速。<br>", 
+                "ビジネスの未来を<br>",
+                "共創する"
+            ] : [ // PC用の改行
+                "AI研修でDXを加速。<br>", 
                 "ビジネスの未来を共創する"
             ];
             const fullTextToType = textLines.join(""); 
@@ -531,12 +540,6 @@
             }
 
             if (typingTextElement) {
-                let initialText = textLines[0];
-                if (window.innerWidth < 768) { 
-                    initialText = "AI研修でDXを加速。<br>"; 
-                } else {
-                    initialText = "AI研修でDXを加速。<br class=\"hidden md:block\">";
-                }
                 setTimeout(type, 500); 
             }
 
